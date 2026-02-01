@@ -1,126 +1,97 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Bhuiyan Selling Point</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#f4f6fb;
-}
-header{
-background:#6a5cff;
-color:white;
-padding:20px;
-text-align:center;
-}
-.products{
-padding:20px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-.card{
-background:white;
-border-radius:12px;
-padding:15px;
-box-shadow:0 6px 16px rgba(0,0,0,.1);
-text-align:center;
-}
-.card img{
-  width:100%;
-  border-radius:10px;
-}
+  <meta charset="UTF-8">
+  <title>Bhuiyan Selling Point</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.logo{
-  width:120px;
-  height:120px;
-  background:white;
-  padding:12px;
-  border-radius:50%;
-  box-shadow:0 6px 16px rgba(0,0,0,.18);
-  display:block;
-  margin:0 auto 14px;
-  object-fit:contain;
-}
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
 
+    body{
+      background:#6c63ff;
+      color:#fff;
+    }
 
-.price{
-color:#e63946;
-font-weight:bold;
-margin:8px 0;
-}
-footer{
-background:#222;
-color:#fff;
-text-align:center;
-padding:12px;
-font-size:14px;
-}
-.btn{
-display:inline-block;
-background:#25D366;
-color:white;
-padding:10px 18px;
-border-radius:30px;
-text-decoration:none;
-font-weight:bold;
-}
-.banner{
-  width:100%;
-  margin-top:12px;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 8px 20px rgba(0,0,0,.15);
-}
+    header{
+      padding:24px 16px;
+      text-align:center;
+    }
 
-.banner img{
-  width:100%;
-  height:auto;
-  display:block;
-  }
-</style>
+    .logo{
+      width:120px;
+      background:white;
+      padding:10px;
+      border-radius:50%;
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+      margin:0 auto 16px;
+    }
+
+    .logo img{
+      width:100%;
+      display:block;
+    }
+
+    .banner{
+      width:100%;
+      margin:12px auto 24px;
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow:0 8px 20px rgba(0,0,0,.2);
+    }
+
+    .banner img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    h1{
+      font-size:28px;
+      margin:16px 0 8px;
+    }
+
+    .tagline{
+      font-size:16px;
+      opacity:.9;
+    }
+
+    .section{
+      background:#f5f6fa;
+      color:#000;
+      padding:20px;
+      border-radius:24px 24px 0 0;
+      margin-top:32px;
+    }
+  </style>
 </head>
+
 <body>
 
-<header>
-  <img src="./images/logo.png" alt="Bhuiyan Selling Point" class="logo">
+  <header>
+    <!-- LOGO -->
+    <div class="logo">
+      <img src="logo.png" alt="Bhuiyan Selling Point Logo">
+    </div>
 
-  <div class="banner">
-    <img src="images/banner.jpg" alt="Bhuiyan Selling Point Banner">
+    <!-- BANNER -->
+    <div class="banner">
+      <img src="banner.jpg" alt="Welcome Banner">
+    </div>
+
+    <h1>BHUIYAN SELLING POINT</h1>
+    <p class="tagline">Trusted Online Shop | নির্ভরযোগ্য অনলাইন</p>
+  </header>
+
+  <div class="section">
+    <h2>Our Products</h2>
+    <p>Products will appear here…</p>
   </div>
-
-  <h1>BHUIYAN SELLING POINT</h1>
-  <p>Trusted Online Shop | নির্ভরযোগ্য অনলাইন</p>
-</header>
-
-
-<section class="products">
-
-<div class="card">
-<img src="./images/kitchen-rack.jpg">
-<h3>5 Layer Kitchen Rack</h3>
-<p class="price">Price: 3100 BDT</p>
-<p>🚚 Delivery: Dhaka 70৳ | Outside Dhaka 130৳<br>⏱️ Delivery time: 3 working days</p>
-<a class="btn" href="https://wa.me/8801707192111">Order Now</a>
-</div>
-
-<div class="card">
-<img src="./images/router-stand.jpg" alt="Router Stand Metal">
-<h3>Router Stand (Metal)</h3>
-<p class="price">Price: 400 BDT</p>
-<p>🚚 Delivery: Dhaka 70৳ | Outside Dhaka 130৳<br>⏱️ Delivery time: 3 working days</p>
-<a class="btn" href="https://wa.me/8801707192111">Order Now</a>
-</div>
-
-</section>
-
-<footer>
-Cash on Delivery Available ✅<br>
-© 2026 Bhuiyan Selling Point
-</footer>
 
 </body>
 </html>
