@@ -9,13 +9,12 @@
 html { scroll-behavior: smooth; }
 body { margin:0; font-family:Segoe UI, sans-serif; background:#f5f5f5; }
 
-/* Cover Image */
+/* Cover Image - small display */
 .cover-img {
   width:100%;
-  height:auto;
-  max-height:450px;  /* একটু বড় height */
+  height:250px;      /* ওয়েবসাইটে ছোট height */
+  object-fit:cover;  /* full width, crop sides proportionally */
   display:block;
-  object-fit:cover;
 }
 
 /* Header / Logo */
@@ -24,10 +23,15 @@ header {
   color:white;
   padding:15px 20px;
   display:flex;
-  justify-content:flex-end; /* ডান পাশে */
+  justify-content:flex-end; /* logo ডান পাশে */
   align-items:center;
 }
-.logo { display:flex; align-items:center; gap:10px; font-weight:bold; }
+.logo {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:bold;
+}
 .logo img {
   width:60px;
   height:60px;
@@ -40,7 +44,7 @@ header {
 /* Products Grid */
 .products {
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); /* width বড় করে দিচ্ছি */
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); /* wider cards */
   gap:20px;
   padding:20px;
 }
@@ -69,8 +73,8 @@ header {
 .card img {
   width:100%;
   height:auto;
-  max-height:300px; /* বড় height, sides crop হবে না */
-  object-fit:contain;
+  max-height:400px;  /* বড় product image */
+  object-fit:contain; /* crop কম, full visible */
   background:#f5f5f5;
   border-radius:10px;
   display:block;
@@ -95,10 +99,11 @@ h4 { font-size:16px; margin:8px 0 4px 0; }
 
 /* Responsive */
 @media (max-width:480px){
+  .cover-img { height:150px; } /* mobile cover smaller */
   header { justify-content:center; text-align:center; }
   .logo { font-size:18px; flex-direction:column; }
   .logo img { width:60px; height:60px; }
-  .card img { max-height:200px; } /* mobile adjust */
+  .card img { max-height:200px; }
 }
 </style>
 </head>
