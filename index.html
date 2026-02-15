@@ -7,75 +7,75 @@
 
 <style>
 body{
-margin:0;
-font-family:Segoe UI, sans-serif;
-background:#f5f5f5;
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:#f5f5f5;
 }
 
 /* Header */
 header{
-background:linear-gradient(45deg,#ff6a00,#ff2e63);
-color:white;
-padding:15px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+  background:linear-gradient(45deg,#ff6a00,#ff2e63);
+  color:white;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-size:20px;
-font-weight:bold;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:20px;
+  font-weight:bold;
 }
 
 .logo img{
-height:40px;
-border-radius:8px;
+  height:40px;
+  border-radius:8px;
 }
 
 /* Products */
 .products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-gap:15px;
-padding:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+  padding:20px;
 }
 
 .card{
-background:white;
-border-radius:12px;
-padding:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);
-text-align:center;
-transition:0.3s;
+  background:white;
+  border-radius:12px;
+  padding:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  text-align:center;
+  transition:0.3s;
 }
 
 .card:hover{
-transform:translateY(-5px);
+  transform:translateY(-5px);
 }
 
 .card img{
-width:100%;
-height:170px;
-object-fit:cover;
-border-radius:10px;
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  border-radius:10px;
 }
 
 .price{
-color:#ff2e63;
-font-weight:bold;
-margin:6px 0;
+  color:#ff2e63;
+  font-weight:bold;
+  margin:6px 0;
 }
 
 .order{
-background:#25D366;
-color:white;
-padding:8px 10px;
-border:none;
-border-radius:6px;
-cursor:pointer;
+  background:#25D366;
+  color:white;
+  padding:8px 10px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -83,65 +83,54 @@ cursor:pointer;
 <body>
 
 <header>
-<div class="logo">
-<img src="https://raw.githubusercontent.com/bhuiyasp/bhuiyan-selling-point/main/images/products/logo.png">
-Bhuiyan Selling Point
-</div>
+  <div class="logo">
+    <!-- Logo with correct GitHub RAW URL -->
+    <img src="https://raw.githubusercontent.com/bhuiyansp/bhuiyan-selling-point/main/images/products/logo.png" alt="Logo">
+    Bhuiyan Selling Point
+  </div>
 </header>
 
 <div class="products" id="products"></div>
 
 <script>
-
+// OpenSheet ID
 const sheetID = "1dM083XrSwtxced9puKJnBPSNVkIcYbLwD_JoEI1nySg";
 const url = `https://opensheet.elk.sh/${sheetID}/Sheet1`;
 
-let productsData = [];
-
 fetch(url)
 .then(res => res.json())
-.then(data => {
-productsData = data;
-displayProducts(data);
-});
+.then(data => displayProducts(data))
+.catch(err => console.error("Error fetching products:", err));
 
 function displayProducts(data){
+  const container = document.getElementById("products");
+  container.innerHTML = "";
 
-const container = document.getElementById("products");
-container.innerHTML = "";
+  data.forEach(product => {
+    const slug = product["Product Slug"];
+    const name = product["Product Name"];
+    const price = product["Price"];
 
-data.forEach(product => {
+    // Correct GitHub RAW URL for each product image
+    const imageURL = `https://raw.githubusercontent.com/bhuiyansp/bhuiyan-selling-point/main/images/products/${slug}-1.jpg`;
 
-const slug = product["Product Slug"];
-const name = product["Product Name"];
-const price = product["Price"];
+    const card = `
+    <div class="card">
+      <img src="${imageURL}" alt="${name}">
+      <h4>${name}</h4>
+      <div class="price">৳${price}</div>
+      <button class="order" onclick="buyNow('${name}', '${price}')">Order Now</button>
+    </div>
+    `;
 
-// 🔥 IMPORTANT: Full GitHub RAW image path
-const imageURL = `https://raw.githubusercontent.com/bhuiyasp/bhuiyan-selling-point/main/images/products/${slug}-1.jpg`;
-
-const card = `
-<div class="card">
-<img src="${imageURL}" alt="${name}">
-<h4>${name}</h4>
-<div class="price">৳${price}</div>
-<button class="order" onclick="buyNow('${name}', '${price}')">Order Now</button>
-</div>
-`;
-
-container.innerHTML += card;
-
-});
-
+    container.innerHTML += card;
+  });
 }
 
 function buyNow(name, price){
-
-const text = `I want to order ${name} - ৳${price}`;
-
-window.open(`https://wa.me/8801707192111?text=${encodeURIComponent(text)}`);
-
+  const text = `I want to order ${name} - ৳${price}`;
+  window.open(`https://wa.me/8801707192111?text=${encodeURIComponent(text)}`);
 }
-
 </script>
 
 </body>
