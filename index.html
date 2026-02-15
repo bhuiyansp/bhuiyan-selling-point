@@ -10,16 +10,40 @@ html { scroll-behavior: smooth; }
 body { margin:0; font-family:Segoe UI, sans-serif; background:#f5f5f5; }
 
 /* Cover Image */
-.cover-img { width:100%; height:auto; max-height:400px; display:block; object-fit:cover; }
+.cover-img {
+  width:100%;
+  height:auto;
+  max-height:450px;  /* একটু বড় height */
+  display:block;
+  object-fit:cover;
+}
 
 /* Header / Logo */
-header { background: linear-gradient(45deg,#ff6a00,#ff2e63); color:white; padding:15px 20px; display:flex; justify-content:flex-end; align-items:center; }
+header {
+  background: linear-gradient(45deg,#ff6a00,#ff2e63);
+  color:white;
+  padding:15px 20px;
+  display:flex;
+  justify-content:flex-end; /* ডান পাশে */
+  align-items:center;
+}
 .logo { display:flex; align-items:center; gap:10px; font-weight:bold; }
-.logo img { width:55px; height:55px; border-radius:50%; object-fit:cover; transition: transform 0.3s ease; }
+.logo img {
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  object-fit:cover;
+  transition: transform 0.3s ease;
+}
 .logo img:hover { transform: scale(1.1); }
 
 /* Products Grid */
-.products { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px; padding:20px; }
+.products {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); /* width বড় করে দিচ্ছি */
+  gap:20px;
+  padding:20px;
+}
 
 /* Card & Animation */
 .card {
@@ -37,11 +61,22 @@ header { background: linear-gradient(45deg,#ff6a00,#ff2e63); color:white; paddin
   overflow: hidden;
 }
 
+/* Animate on scroll */
 .card.show { opacity:1; transform: translateY(0); }
 
 /* Advanced hover effect */
-.card:hover { transform: scale(1.03); box-shadow:0 12px 25px rgba(0,0,0,0.2); }
-.card img { width:100%; height:auto; max-height:250px; object-fit:contain; background:#f5f5f5; border-radius:10px; display:block; margin:0 auto; transition: transform 0.4s ease; }
+.card:hover { transform: scale(1.04); box-shadow:0 12px 25px rgba(0,0,0,0.2); }
+.card img {
+  width:100%;
+  height:auto;
+  max-height:300px; /* বড় height, sides crop হবে না */
+  object-fit:contain;
+  background:#f5f5f5;
+  border-radius:10px;
+  display:block;
+  margin:0 auto;
+  transition: transform 0.4s ease;
+}
 .card:hover img { transform: scale(1.05); }
 
 h4 { font-size:16px; margin:8px 0 4px 0; }
@@ -63,7 +98,7 @@ h4 { font-size:16px; margin:8px 0 4px 0; }
   header { justify-content:center; text-align:center; }
   .logo { font-size:18px; flex-direction:column; }
   .logo img { width:60px; height:60px; }
-  .card img { max-height:180px; }
+  .card img { max-height:200px; } /* mobile adjust */
 }
 </style>
 </head>
@@ -71,7 +106,7 @@ h4 { font-size:16px; margin:8px 0 4px 0; }
 <body>
 
 <!-- Cover -->
-<img src="images/cover.png" alt="Cover" class="cover-img">
+<img src="images/products/cover.png" alt="Cover" class="cover-img">
 
 <!-- Header -->
 <header>
@@ -107,7 +142,7 @@ function displayProducts(data){
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <img src="${imageURL}" alt="${name}" onerror="this.src='https://via.placeholder.com/250x250?text=No+Image'">
+      <img src="${imageURL}" alt="${name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
       <h4>${name}</h4>
       <div class="price">৳${price}</div>
       <button class="order" onclick="buyNow('${name}', '${price}')">Order Now</button>
@@ -115,6 +150,7 @@ function displayProducts(data){
     container.appendChild(card);
   });
 
+  // Animate cards on scroll
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
