@@ -6,24 +6,37 @@
 <title>Bhuiyan Selling Point</title>
 
 <style>
-body{
+html {
+  scroll-behavior: smooth; /* Smooth scroll */
+}
+
+body {
   margin:0;
   font-family:Segoe UI, sans-serif;
   background:#f5f5f5;
 }
 
-/* Header */
-header{
-  background:linear-gradient(45deg,#ff6a00,#ff2e63);
+/* Cover Image */
+.header-cover {
+  width: 100%;
+  height: 360px;
+  background-image: url('https://raw.githubusercontent.com/bhuiyansp/bhuiyan-selling-point/main/images/cover.png');
+  background-size: cover;  
+  background-position: center;
+  transition: background 0.5s ease;
+}
+
+/* Header / Logo */
+header {
+  background: linear-gradient(45deg,#ff6a00,#ff2e63);
   color:white;
   padding:15px 20px;
   display:flex;
-  justify-content:space-between;
+  justify-content:flex-end;
   align-items:center;
-  flex-wrap: wrap;
 }
 
-.logo{
+.logo {
   display:flex;
   align-items:center;
   gap:10px;
@@ -31,54 +44,67 @@ header{
   font-weight:bold;
 }
 
-.logo img{
-  width:50px;
-  height:50px;
+.logo img {
+  width:55px;
+  height:55px;
   border-radius:50%;
   object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
-/* Products */
-.products{
+.logo img:hover {
+  transform: scale(1.1);
+}
+
+/* Products Grid */
+.products {
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:15px;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:18px;
   padding:20px;
 }
 
-.card{
+.card {
   background:white;
   border-radius:12px;
   padding:10px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.1);
+  box-shadow:0 6px 15px rgba(0,0,0,0.1);
   text-align:center;
-  transition:0.3s;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+  opacity:0;
+  transform: translateY(20px);
 }
 
-.card:hover{
-  transform:translateY(-5px);
+.card.show {
+  opacity:1;
+  transform: translateY(0);
 }
 
-.card img{
+.card:hover {
+  transform:translateY(-6px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.card img {
   width:100%;
-  height:180px;
-  object-fit:contain;
+  height:220px;
+  object-fit: cover;
   border-radius:10px;
   background:#f5f5f5;
 }
 
-h4{
+h4 {
   font-size:16px;
   margin:8px 0 4px 0;
 }
 
-.price{
+.price {
   color:#ff2e63;
   font-weight:bold;
   margin:4px 0 8px 0;
 }
 
-.order{
+.order {
   background:#25D366;
   color:white;
   padding:8px 12px;
@@ -88,11 +114,11 @@ h4{
   transition:0.2s;
 }
 
-.order:hover{
+.order:hover {
   background:#1ebe5d;
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width:480px){
   header{
     justify-content:center;
@@ -107,7 +133,7 @@ h4{
     height:60px;
   }
   .card img{
-    height:150px;
+    height:160px;
   }
 }
 </style>
@@ -115,6 +141,10 @@ h4{
 
 <body>
 
+<!-- Cover -->
+<div class="header-cover"></div>
+
+<!-- Header -->
 <header>
   <div class="logo">
     <img src="https://raw.githubusercontent.com/bhuiyansp/bhuiyan-selling-point/main/images/products/logo.png" alt="Logo">
@@ -122,9 +152,11 @@ h4{
   </div>
 </header>
 
+<!-- Products -->
 <div class="products" id="products"></div>
 
 <script>
+// OpenSheet ID
 const sheetID = "1dM083XrSwtxced9puKJnBPSNVkIcYbLwD_JoEI1nySg";
 const url = `https://opensheet.elk.sh/${sheetID}/Sheet1`;
 
@@ -144,16 +176,28 @@ function displayProducts(data){
 
     const imageURL = `https://raw.githubusercontent.com/bhuiyansp/bhuiyan-selling-point/main/images/products/${slug}-1.jpg`;
 
-    const card = `
-    <div class="card">
-      <img src="${imageURL}" alt="${name}" onerror="this.src='https://via.placeholder.com/180x180?text=No+Image'">
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${imageURL}" alt="${name}" onerror="this.src='https://via.placeholder.com/220x220?text=No+Image'">
       <h4>${name}</h4>
       <div class="price">৳${price}</div>
       <button class="order" onclick="buyNow('${name}', '${price}')">Order Now</button>
-    </div>
     `;
-    container.innerHTML += card;
+    container.appendChild(card);
   });
+
+  // Animate cards on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll(".card").forEach(card => observer.observe(card));
 }
 
 function buyNow(name, price){
