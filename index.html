@@ -20,54 +20,58 @@ body{
   margin-bottom:30px;
 }
 @media(max-width:480px){
-  .cover-img{height:150px;}
+  .cover-img{height:160px;}
 }
 
 /* Search */
-.search-box{text-align:center;margin-bottom:20px;}
+.search-box{
+  text-align:center;
+  margin-bottom:25px;
+}
 .search-box input{
-  width:80%;
-  max-width:400px;
-  padding:12px;
+  width:85%;
+  max-width:450px;
+  padding:14px;
   font-size:16px;
-  border-radius:8px;
+  border-radius:10px;
   border:1px solid #ccc;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
-/* Grid */
+/* Product Grid */
 .products{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-  padding:0 20px 20px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+  padding:0 20px 30px;
 }
 
 /* Card */
 .card{
   background:white;
-  border-radius:15px;
-  padding:12px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  border-radius:18px;
+  padding:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
   text-align:center;
   transition:0.4s;
-  overflow:hidden;
 }
 .card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 15px 30px rgba(0,0,0,0.15);
+  transform:translateY(-8px);
+  box-shadow:0 18px 40px rgba(0,0,0,0.15);
 }
 
-/* Slider */
+/* ===== SQUARE IMAGE (1:1) ===== */
 .product-slider{
   width:100%;
-  height:300px;
+  aspect-ratio:1/1;   /* Square */
+  max-height:350px;   /* Desktop বড় */
   overflow:hidden;
-  border-radius:12px;
-  margin-bottom:10px;
+  border-radius:15px;
+  margin-bottom:12px;
   position:relative;
   background:#fff;
 }
+
 .product-slider img{
   width:100%;
   height:100%;
@@ -77,33 +81,50 @@ body{
   opacity:0;
   transition:0.6s ease;
 }
-.product-slider img.active{opacity:1;}
+
+.product-slider img.active{
+  opacity:1;
+}
+
 .product-slider:hover img.active{
-  transform:scale(1.05);
+  transform:scale(1.08);
+}
+
+/* Mobile bigger square */
+@media(max-width:480px){
+  .products{
+    grid-template-columns:1fr;
+  }
+  .product-slider{
+    max-height:380px;  /* Mobile এ বড় */
+  }
 }
 
 /* Text */
-h4{font-size:18px;margin:8px 0;}
+h4{
+  font-size:19px;
+  margin:10px 0;
+}
 .price{
   color:#e60023;
   font-weight:bold;
-  font-size:16px;
+  font-size:17px;
 }
 
+/* Button */
 .order{
   background:#25D366;
   color:white;
-  padding:10px;
+  padding:12px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   cursor:pointer;
-  margin-top:8px;
+  margin-top:10px;
+  font-size:15px;
   transition:0.3s;
 }
-.order:hover{background:#1ebe5d;}
-
-@media(max-width:480px){
-  .product-slider{height:240px;}
+.order:hover{
+  background:#1ebe5d;
 }
 
 /* Floating WhatsApp */
@@ -112,13 +133,16 @@ h4{font-size:18px;margin:8px 0;}
   bottom:20px;
   right:20px;
   background:#25D366;
-  padding:14px;
+  padding:15px;
   border-radius:50%;
-  box-shadow:0 6px 20px rgba(0,0,0,0.3);
+  box-shadow:0 8px 25px rgba(0,0,0,0.3);
   animation:bounce 2s infinite;
+  z-index:999;
 }
-.whatsapp-float img{width:28px;display:block;}
-
+.whatsapp-float img{
+  width:30px;
+  display:block;
+}
 @keyframes bounce{
   0%,100%{transform:translateY(0);}
   50%{transform:translateY(-6px);}
@@ -142,32 +166,39 @@ footer{
   display:none;
   justify-content:center;
   align-items:center;
+  z-index:1000;
 }
 .popup-content{
   background:white;
   padding:20px;
-  border-radius:12px;
+  border-radius:15px;
   width:95%;
   max-width:420px;
   max-height:90vh;
   overflow-y:auto;
 }
-.popup-content input, .popup-content select{
+.popup-content input,
+.popup-content select{
   width:100%;
-  padding:10px;
-  margin-bottom:10px;
-  border-radius:6px;
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:8px;
   border:1px solid #ccc;
 }
 .popup-content button{
   width:100%;
-  padding:12px;
+  padding:14px;
   background:#25D366;
   color:white;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
+  font-size:15px;
 }
-.close-btn{text-align:right;cursor:pointer;font-weight:bold;}
+.close-btn{
+  text-align:right;
+  cursor:pointer;
+  font-weight:bold;
+}
 .total-box{
   font-weight:bold;
   margin-bottom:10px;
@@ -195,13 +226,11 @@ footer{
 <div class="popup" id="orderPopup">
   <div class="popup-content">
     <div class="close-btn" onclick="closePopup()">X</div>
-
     <h3>🚚 Cash on Delivery Available</h3>
 
     <input type="text" id="customerName" placeholder="👤 নাম">
     <input type="text" id="customerPhone" placeholder="📱 মোবাইল নাম্বার">
     <input type="text" id="customerAddress" placeholder="🏠 সম্পূর্ণ ঠিকানা">
-
     <input type="number" id="quantity" value="1" min="1" oninput="calculateTotal()">
 
     <select id="area" onchange="calculateTotal()">
@@ -210,7 +239,6 @@ footer{
     </select>
 
     <div class="total-box" id="totalAmount">মোট টাকা: ৳0</div>
-
     <button onclick="sendOrder()">Confirm Order</button>
 
     <p style="font-size:13px;">
@@ -301,8 +329,6 @@ function sendOrder(){
   const qty=document.getElementById("quantity").value;
   const delivery=parseInt(document.getElementById("area").value);
   const total=(selectedPrice*qty)+delivery;
-
-  alert("✅ আপনার অর্ডার প্রস্তুত! এখন WhatsApp এ কনফার্ম করুন.");
 
   const message=`🚚 Cash on Delivery Available 🚚
 Product: ${selectedProduct}
