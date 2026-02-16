@@ -8,165 +8,293 @@
 <style>
 body { margin:0; font-family:Segoe UI, sans-serif; background:#f5f5f5; }
 
-/* Cover Image */
-.cover-img {
-  width: 100%;
-  height: 250px;      /* desktop */
-  object-fit: cover;
-  display: block;
-  margin-bottom: 30px; /* cover এবং products-এর মধ্যে ফাঁকা space */
+/* Cover */
+.cover-img{
+  width:100%;
+  height:250px;
+  object-fit:cover;
+  margin-bottom:30px;
+}
+@media(max-width:480px){
+  .cover-img{ height:150px; }
 }
 
-@media (max-width:480px){
-  .cover-img {
-    height: 150px;    /* mobile height */
-    margin-bottom: 30px; /* mobile view-এও 30px space */
-  }
+/* Search */
+.search-box{text-align:center;margin-bottom:20px;}
+.search-box input{
+  width:80%;
+  max-width:400px;
+  padding:10px;
+  font-size:16px;
+  border-radius:6px;
+  border:1px solid #ccc;
 }
 
-/* Products Grid */
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
-  padding: 0 20px 20px 20px;
+/* Grid */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  padding:0 20px 20px;
 }
 
-/* Card & hover */
-.card {
+/* Card */
+.card{
   background:white;
   border-radius:12px;
   padding:10px;
   box-shadow:0 6px 15px rgba(0,0,0,0.1);
   text-align:center;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
-  opacity:0;
-  transform: translateY(20px);
-  display:flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
+  transition:0.4s;
+}
+.card:hover{
+  transform:scale(1.03);
+  box-shadow:0 12px 25px rgba(0,0,0,0.2);
 }
 
-.card.show { opacity:1; transform: translateY(0); }
-.card:hover { transform: scale(1.04); box-shadow:0 12px 25px rgba(0,0,0,0.2); }
-
-/* Slider container */
-.product-slider {
-  position: relative;
-  width: 100%;
-  height: 400px; /* desktop image height */
-  overflow: hidden;
+/* Slider */
+.product-slider{
+  position:relative;
+  width:100%;
+  height:400px;
+  overflow:hidden;
   border-radius:10px;
   margin-bottom:10px;
 }
-.product-slider img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  position: absolute;
-  top:0; left:0;
+.product-slider img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  position:absolute;
   opacity:0;
-  transition: opacity 0.5s ease;
+  transition:0.5s;
 }
-.product-slider img.active { opacity:1; }
+.product-slider img.active{opacity:1;}
 
-/* Product info */
-h4 { font-size:16px; margin:8px 0 4px 0; }
-.price { color:#ff2e63; font-weight:bold; margin:4px 0 8px 0; }
+@media(max-width:480px){
+  .product-slider{height:350px;}
+}
 
-.order {
+h4{font-size:18px;margin:8px 0;}
+.price{color:#ff2e63;font-weight:bold;}
+
+.order{
   background:#25D366;
   color:white;
-  padding:8px 12px;
+  padding:8px;
   border:none;
   border-radius:6px;
   cursor:pointer;
-  transition: transform 0.3s ease, background 0.3s ease;
 }
-.order:hover { background:#1ebe5d; transform: scale(1.05); }
 
-/* Mobile responsive */
-@media (max-width:480px){
-  .product-slider { height: 350px; }
+/* Floating Button */
+.whatsapp-float{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  color:white;
+  font-size:22px;
+  padding:12px 15px;
+  border-radius:50%;
+  text-decoration:none;
 }
+
+/* Footer */
+footer{
+  text-align:center;
+  padding:20px;
+  background:#111;
+  color:white;
+  margin-top:40px;
+}
+
+/* Popup */
+.popup{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+.popup-content{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  width:95%;
+  max-width:420px;
+  max-height:90vh;
+  overflow-y:auto;
+}
+.popup-content input, .popup-content select{
+  width:100%;
+  padding:8px;
+  margin-bottom:10px;
+}
+.popup-content button{
+  width:100%;
+  padding:10px;
+  background:#25D366;
+  color:white;
+  border:none;
+  border-radius:6px;
+}
+.close-btn{text-align:right;cursor:pointer;font-weight:bold;}
+.total-box{
+  font-weight:bold;
+  margin-bottom:10px;
+  color:#ff2e63;
+}
+.info-text{font-size:14px;margin-bottom:10px;line-height:1.6;}
 </style>
 </head>
 <body>
 
-<!-- Cover -->
-<img src="images/products/cover.png" alt="Cover" class="cover-img">
+<img src="images/products/cover.png" class="cover-img">
 
-<!-- Products Grid -->
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="Search product...">
+</div>
+
 <div class="products" id="products"></div>
 
+<a href="https://wa.me/8801707192111" class="whatsapp-float" target="_blank">💬</a>
+
+<footer>© 2026 Bhuiyan Selling Point | All Rights Reserved</footer>
+
+<!-- Popup -->
+<div class="popup" id="orderPopup">
+  <div class="popup-content">
+    <div class="close-btn" onclick="closePopup()">X</div>
+
+    <div class="info-text">
+      🚚 <b>Cash on Delivery Available</b> 🚚
+    </div>
+
+    <input type="text" id="customerName" placeholder="👤 নাম">
+    <input type="text" id="customerPhone" placeholder="📱 মোবাইল নাম্বার">
+    <input type="text" id="customerAddress" placeholder="🏠 সম্পূর্ণ ঠিকানা">
+
+    <input type="number" id="quantity" value="1" min="1" placeholder="🔢 পরিমাণ" oninput="calculateTotal()">
+
+    <select id="area" onchange="calculateTotal()">
+      <option value="70">📍 ঢাকা (Delivery 70৳)</option>
+      <option value="120">📍 ঢাকার বাইরে (Delivery 120৳)</option>
+    </select>
+
+    <div class="total-box" id="totalAmount">
+      মোট টাকা: ৳0
+    </div>
+
+    <button onclick="sendOrder()">Confirm Order</button>
+
+    <div class="info-text">
+      ⏱️ ডেলিভারি সময়: ৩ কার্যদিবস (ইনশাআল্লাহ)<br>
+      ⚠️ সঠিক তথ্য দিলে অর্ডার দ্রুত কনফার্ম হবে।
+    </div>
+  </div>
+</div>
+
 <script>
-// OpenSheet ID
-const sheetID = "1dM083XrSwtxced9puKJnBPSNVkIcYbLwD_JoEI1nySg";
-const url = `https://opensheet.elk.sh/${sheetID}/Sheet1`;
+const sheetID="1dM083XrSwtxced9puKJnBPSNVkIcYbLwD_JoEI1nySg";
+const url=`https://opensheet.elk.sh/${sheetID}/Sheet1`;
+
+let selectedProduct="";
+let selectedPrice=0;
 
 fetch(url)
-.then(res => res.json())
-.then(data => displayProducts(data))
-.catch(err => console.error("Error fetching products:", err));
+.then(res=>res.json())
+.then(data=>displayProducts(data));
 
 function displayProducts(data){
-  const container = document.getElementById("products");
-  container.innerHTML = "";
+  const container=document.getElementById("products");
+  container.innerHTML="";
 
-  data.forEach(product => {
-    const slug = product["Product Slug"];
-    const name = product["Product Name"];
-    const price = product["Price"];
+  data.forEach(product=>{
+    const slug=product["Product Slug"];
+    const name=product["Product Name"];
+    const price=parseFloat(product["Price"]);
 
-    // Product card
-    const card = document.createElement("div");
-    card.className = "card";
+    const card=document.createElement("div");
+    card.className="card";
+    card.setAttribute("data-name", name.toLowerCase());
 
-    // Slider HTML
-    const sliderHTML = `
+    card.innerHTML=`
       <div class="product-slider">
-        <img src="images/products/${slug}-1.jpg" class="active" alt="${name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
-        <img src="images/products/${slug}-2.jpg" alt="${name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
-        <img src="images/products/${slug}-3.jpg" alt="${name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
+        <img src="images/products/${slug}-1.jpg" class="active">
+        <img src="images/products/${slug}-2.jpg">
+        <img src="images/products/${slug}-3.jpg">
       </div>
-    `;
-
-    card.innerHTML = `
-      ${sliderHTML}
       <h4>${name}</h4>
       <div class="price">৳${price}</div>
-      <button class="order" onclick="buyNow('${name}', '${price}')">Order Now</button>
+      <button class="order" onclick="openPopup('${name}',${price})">Order Now</button>
     `;
+
     container.appendChild(card);
   });
 
-  // Animate cards on scroll
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add("show");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-  document.querySelectorAll(".card").forEach(card => observer.observe(card));
-
-  // Start slider for all products
-  document.querySelectorAll(".product-slider").forEach(slider => {
-    const images = slider.querySelectorAll("img");
-    let current = 0;
-    setInterval(() => {
+  document.querySelectorAll(".product-slider").forEach(slider=>{
+    const images=slider.querySelectorAll("img");
+    let current=0;
+    setInterval(()=>{
       images[current].classList.remove("active");
-      current = (current + 1) % images.length;
+      current=(current+1)%images.length;
       images[current].classList.add("active");
-    }, 2000); // 2 seconds per image
+    },2000);
   });
 }
 
-function buyNow(name, price){
-  const text = `I want to order ${name} - ৳${price}`;
-  window.open(`https://wa.me/8801707192111?text=${encodeURIComponent(text)}`);
+/* Search */
+document.getElementById("searchInput").addEventListener("keyup",function(){
+  const value=this.value.toLowerCase();
+  document.querySelectorAll(".card").forEach(card=>{
+    const name=card.getAttribute("data-name");
+    card.style.display=name.includes(value)?"block":"none";
+  });
+});
+
+/* Popup */
+function openPopup(name,price){
+  selectedProduct=name;
+  selectedPrice=price;
+  document.getElementById("orderPopup").style.display="flex";
+  calculateTotal();
+}
+function closePopup(){
+  document.getElementById("orderPopup").style.display="none";
+}
+
+/* Calculate Total */
+function calculateTotal(){
+  const qty=parseInt(document.getElementById("quantity").value)||1;
+  const delivery=parseInt(document.getElementById("area").value);
+  const total=(selectedPrice*qty)+delivery;
+  document.getElementById("totalAmount").innerText="মোট টাকা: ৳"+total;
+}
+
+/* Send Order */
+function sendOrder(){
+  const name=document.getElementById("customerName").value;
+  const phone=document.getElementById("customerPhone").value;
+  const address=document.getElementById("customerAddress").value;
+  const qty=document.getElementById("quantity").value;
+  const delivery=document.getElementById("area").value;
+  const total=(selectedPrice*qty)+parseInt(delivery);
+
+  alert("✅ আপনার অর্ডার প্রস্তুত! এখন WhatsApp এ কনফার্ম করুন.");
+
+  const message=`🚚 Cash on Delivery Available 🚚
+Product: ${selectedProduct}
+Quantity: ${qty}
+Total: ৳${total}
+
+Name: ${name}
+Phone: ${phone}
+Address: ${address}`;
+
+  window.open(`https://wa.me/8801707192111?text=${encodeURIComponent(message)}`);
 }
 </script>
 
