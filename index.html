@@ -6,7 +6,11 @@
 <title>Bhuiyan Selling Point</title>
 
 <style>
-body { margin:0; font-family:Segoe UI, sans-serif; background:#f5f5f5; }
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:#f4f6f9;
+}
 
 /* Cover */
 .cover-img{
@@ -16,7 +20,7 @@ body { margin:0; font-family:Segoe UI, sans-serif; background:#f5f5f5; }
   margin-bottom:30px;
 }
 @media(max-width:480px){
-  .cover-img{ height:150px; }
+  .cover-img{height:150px;}
 }
 
 /* Search */
@@ -24,16 +28,17 @@ body { margin:0; font-family:Segoe UI, sans-serif; background:#f5f5f5; }
 .search-box input{
   width:80%;
   max-width:400px;
-  padding:10px;
+  padding:12px;
   font-size:16px;
-  border-radius:6px;
+  border-radius:8px;
   border:1px solid #ccc;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
 }
 
 /* Grid */
 .products{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:20px;
   padding:0 20px 20px;
 }
@@ -41,63 +46,82 @@ body { margin:0; font-family:Segoe UI, sans-serif; background:#f5f5f5; }
 /* Card */
 .card{
   background:white;
-  border-radius:12px;
-  padding:10px;
-  box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  border-radius:15px;
+  padding:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
   text-align:center;
   transition:0.4s;
+  overflow:hidden;
 }
 .card:hover{
-  transform:scale(1.03);
-  box-shadow:0 12px 25px rgba(0,0,0,0.2);
+  transform:translateY(-6px);
+  box-shadow:0 15px 30px rgba(0,0,0,0.15);
 }
 
 /* Slider */
 .product-slider{
-  position:relative;
   width:100%;
-  height:400px;
+  height:300px;
   overflow:hidden;
-  border-radius:10px;
+  border-radius:12px;
   margin-bottom:10px;
+  position:relative;
+  background:#fff;
 }
 .product-slider img{
   width:100%;
   height:100%;
-  object-fit:contain;
+  object-fit:cover;
   position:absolute;
+  top:0;left:0;
   opacity:0;
-  transition:0.5s;
+  transition:0.6s ease;
 }
 .product-slider img.active{opacity:1;}
-
-@media(max-width:480px){
-  .product-slider{height:350px;}
+.product-slider:hover img.active{
+  transform:scale(1.05);
 }
 
+/* Text */
 h4{font-size:18px;margin:8px 0;}
-.price{color:#ff2e63;font-weight:bold;}
+.price{
+  color:#e60023;
+  font-weight:bold;
+  font-size:16px;
+}
 
 .order{
   background:#25D366;
   color:white;
-  padding:8px;
+  padding:10px;
   border:none;
-  border-radius:6px;
+  border-radius:8px;
   cursor:pointer;
+  margin-top:8px;
+  transition:0.3s;
+}
+.order:hover{background:#1ebe5d;}
+
+@media(max-width:480px){
+  .product-slider{height:240px;}
 }
 
-/* Floating Button */
+/* Floating WhatsApp */
 .whatsapp-float{
   position:fixed;
   bottom:20px;
   right:20px;
   background:#25D366;
-  color:white;
-  font-size:22px;
-  padding:12px 15px;
+  padding:14px;
   border-radius:50%;
-  text-decoration:none;
+  box-shadow:0 6px 20px rgba(0,0,0,0.3);
+  animation:bounce 2s infinite;
+}
+.whatsapp-float img{width:28px;display:block;}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-6px);}
 }
 
 /* Footer */
@@ -122,7 +146,7 @@ footer{
 .popup-content{
   background:white;
   padding:20px;
-  border-radius:10px;
+  border-radius:12px;
   width:95%;
   max-width:420px;
   max-height:90vh;
@@ -130,24 +154,25 @@ footer{
 }
 .popup-content input, .popup-content select{
   width:100%;
-  padding:8px;
+  padding:10px;
   margin-bottom:10px;
+  border-radius:6px;
+  border:1px solid #ccc;
 }
 .popup-content button{
   width:100%;
-  padding:10px;
+  padding:12px;
   background:#25D366;
   color:white;
   border:none;
-  border-radius:6px;
+  border-radius:8px;
 }
 .close-btn{text-align:right;cursor:pointer;font-weight:bold;}
 .total-box{
   font-weight:bold;
   margin-bottom:10px;
-  color:#ff2e63;
+  color:#e60023;
 }
-.info-text{font-size:14px;margin-bottom:10px;line-height:1.6;}
 </style>
 </head>
 <body>
@@ -160,7 +185,9 @@ footer{
 
 <div class="products" id="products"></div>
 
-<a href="https://wa.me/8801707192111" class="whatsapp-float" target="_blank">💬</a>
+<a href="https://wa.me/8801707192111" class="whatsapp-float" target="_blank">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+</a>
 
 <footer>© 2026 Bhuiyan Selling Point | All Rights Reserved</footer>
 
@@ -169,31 +196,27 @@ footer{
   <div class="popup-content">
     <div class="close-btn" onclick="closePopup()">X</div>
 
-    <div class="info-text">
-      🚚 <b>Cash on Delivery Available</b> 🚚
-    </div>
+    <h3>🚚 Cash on Delivery Available</h3>
 
     <input type="text" id="customerName" placeholder="👤 নাম">
     <input type="text" id="customerPhone" placeholder="📱 মোবাইল নাম্বার">
     <input type="text" id="customerAddress" placeholder="🏠 সম্পূর্ণ ঠিকানা">
 
-    <input type="number" id="quantity" value="1" min="1" placeholder="🔢 পরিমাণ" oninput="calculateTotal()">
+    <input type="number" id="quantity" value="1" min="1" oninput="calculateTotal()">
 
     <select id="area" onchange="calculateTotal()">
-      <option value="70">📍 ঢাকা (Delivery 70৳)</option>
-      <option value="120">📍 ঢাকার বাইরে (Delivery 120৳)</option>
+      <option value="70">ঢাকা (Delivery 70৳)</option>
+      <option value="120">ঢাকার বাইরে (Delivery 120৳)</option>
     </select>
 
-    <div class="total-box" id="totalAmount">
-      মোট টাকা: ৳0
-    </div>
+    <div class="total-box" id="totalAmount">মোট টাকা: ৳0</div>
 
     <button onclick="sendOrder()">Confirm Order</button>
 
-    <div class="info-text">
+    <p style="font-size:13px;">
       ⏱️ ডেলিভারি সময়: ৩ কার্যদিবস (ইনশাআল্লাহ)<br>
       ⚠️ সঠিক তথ্য দিলে অর্ডার দ্রুত কনফার্ম হবে।
-    </div>
+    </p>
   </div>
 </div>
 
@@ -242,7 +265,7 @@ function displayProducts(data){
       images[current].classList.remove("active");
       current=(current+1)%images.length;
       images[current].classList.add("active");
-    },2000);
+    },2500);
   });
 }
 
@@ -265,23 +288,19 @@ function openPopup(name,price){
 function closePopup(){
   document.getElementById("orderPopup").style.display="none";
 }
-
-/* Calculate Total */
 function calculateTotal(){
   const qty=parseInt(document.getElementById("quantity").value)||1;
   const delivery=parseInt(document.getElementById("area").value);
   const total=(selectedPrice*qty)+delivery;
   document.getElementById("totalAmount").innerText="মোট টাকা: ৳"+total;
 }
-
-/* Send Order */
 function sendOrder(){
   const name=document.getElementById("customerName").value;
   const phone=document.getElementById("customerPhone").value;
   const address=document.getElementById("customerAddress").value;
   const qty=document.getElementById("quantity").value;
-  const delivery=document.getElementById("area").value;
-  const total=(selectedPrice*qty)+parseInt(delivery);
+  const delivery=parseInt(document.getElementById("area").value);
+  const total=(selectedPrice*qty)+delivery;
 
   alert("✅ আপনার অর্ডার প্রস্তুত! এখন WhatsApp এ কনফার্ম করুন.");
 
